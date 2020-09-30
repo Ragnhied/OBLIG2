@@ -51,3 +51,15 @@ print(y)  # printer 0.5403
 # plt.plot(t, o, label="computed")
 # plt.legend()
 # plt.show()
+
+
+def dcndt(c, t):
+    dt = 0.05
+    who = 1.4
+    w = 1.0
+    h_ = 1
+    me = 1
+    e_ = 1
+    En = h_ * w * (n + 0.5)
+    Em = h_ * w * (m + 0.5)
+    vdt = Vnm(t) * np.exp((i * (En - Em) * t) / h_)
