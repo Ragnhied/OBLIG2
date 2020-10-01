@@ -53,8 +53,21 @@ def dcndt(c, t):
 
     def V_dt(t):
         V = V0 * (-q) * e_0 * np.cos(w * t) * np.exp((1j(En - Em) * t) / h_)
+        return V
 
-    init = np.zeros(n)
+    # init = np.zeros(n)
+
+    def Cn_dt(y, t):
+        # må bytte ut cos(t) med -i/h_V't*C
+
+        t = 0
+        n_states = 100
+        n_timestep = 0.01
+        c = np.zeros([n.states, n.time.step])
+        c[0, 0] = 1
+        print(c)
+
+        return ((-1j) / h_) * V_dt * c
 
 
 # 1j = "i" i python
