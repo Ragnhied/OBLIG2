@@ -83,11 +83,16 @@ def f1(t, c):
 for i in range(num - 1):
     c[i + 1, :] = runge_kutta_method(tn[i], c[i, :], dt, f1)
 
+
+def absorption_probability(t):
+    pass
+
+
 c__ = np.abs(c) ** 2
 
-plt.plot(tn, c__[:, 0], label="computed1")
+# plt.plot(tn, c__[:, 0], label="computed1")
 # plt.plot(tn, c__[:, 1], label="computed2")
-# plt.plot(tn, c__[:, 2], label="computed3")
+plt.plot(tn, c__[:, 2], label="computed3")
 plt.legend()
 plt.show()
 
