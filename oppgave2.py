@@ -34,7 +34,7 @@ def runge_kutta_method(tn, yn, dt, f):
 who = 1.4
 w = 1.0
 h_ = 1
-q = 1  # samme som e i oppgaveheftet
+q = 1
 me = 1
 e_ = 1
 
@@ -53,13 +53,8 @@ x_0 = np.sqrt(h_ / (me * w))
 
 c = np.zeros([num, n_states], dtype=complex)
 c[0, 0] = 1
-# c1 = c * np.exp((1j * En * t) / h_)
-# return -(1j) / h_ * V_dt * c * np.exp((1j * En * t) / h_)
 
-
-# 1j = "i" i python
 tn = np.linspace(0, T, num)
-# dt = tn[1] - tn[0]
 dt = 0.01
 
 
@@ -67,11 +62,9 @@ def f1(t, c):
     diag = np.sqrt(np.arange(1, n_states))
     V0 = np.zeros([n_states, n_states], dtype=complex)
     V0 += np.diag(diag, 1) + np.diag(diag, -1)
-    # V0 *=
     V = V0 * (
         (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
-    )  # her mangler En osv
-    # print(V)
+    )
     return (-1j / h_) * np.dot(
         V, c
     )  # * np.exp((1j * En * t) / h_)  # byttet ut En med e_0*cos(wt)
