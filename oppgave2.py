@@ -34,13 +34,13 @@ def runge_kutta_method(tn, yn, dt, f):
 who = 1.4
 w = 1.0
 h_ = 1
-q = 1
+q = -1
 me = 1
 e_ = 1
 
 e0_1 = 0.05
-e0_2 = 0.2
-e0_3 = 0.5
+e0_1 = 0.2
+e0_1 = 0.5
 n_states = 3
 
 En = h_ * who * (n_states + 0.5)
@@ -61,13 +61,12 @@ dt = 0.01
 def f1(t, c):
     diag = np.sqrt(np.arange(1, n_states))
     V0 = np.zeros([n_states, n_states], dtype=complex)
-    V0 += np.diag(diag, 1) + np.diag(diag, -1)
-    V = V0 * (
-        (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
-    )
-    return (-1j / h_) * np.dot(
-        V, c
-    )  # * np.exp((1j * En * t) / h_)  # byttet ut En med e_0*cos(wt)
+    k = (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
+    V0 += (np.diag(diag, 1) * k) + (np.diag(diag, -1) * k)
+    # V = V0 * (
+    # (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
+    # )
+    return (-1j / h_) * np.dot(V0, c)
 
 
 for i in range(num - 1):
@@ -78,7 +77,8 @@ def absorption_probability(t):
     diag = np.sqrt(np.arange(1, n_states))
     V0 = np.zeros([n_states, n_states], dtype=complex)
     V0 += np.diag(diag, 1) + np.diag(diag, -1)
-    W_fi_2 = (V0 * (x_0 / np.sqrt(2)) * ((-q * e0_1) / 2)) ** 2
+    V = V0[0, 1]
+    W_fi_2 = (V * (x_0 / np.sqrt(2)) * ((-q * e0_1) / 2)) ** 2
     return (W_fi_2 * np.sin(0.5 * (who - w) * t) ** 2) / (
         h_ ** 2 * (0.5 * (who - w)) ** 2
     )
@@ -87,11 +87,11 @@ def absorption_probability(t):
 c__ = np.abs(c) ** 2
 
 
-# plt.plot(tn, absorption_probability(tn), label="Absorption probability")
+plt.plot(tn, absorption_probability(tn), label="Absorption probability")
 plt.plot(tn, c__[:, 0], label="c0^2")
 plt.plot(tn, c__[:, 1], label="c1^2")
 plt.plot(tn, c__[:, 2], label="c2^2")
 plt.legend()
-plt.title("c0^2, c1^2, c2^2 with e0 = 0.05")
-plt.savefig("2f e0=0,05.png")
+plt.title("c0^2, c1^2, c2^2 with e0 = 0.5")
+plt.savefig("2f e0=0,5.png")
 plt.show()
