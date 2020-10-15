@@ -40,7 +40,7 @@ e_ = 1
 
 e0_1 = 0.05
 e0_1 = 0.2
-e0_1 = 0.5
+e0_3 = 0.5
 n_states = 3
 
 En = h_ * who * (n_states + 0.5)
@@ -61,8 +61,9 @@ dt = 0.01
 def f1(t, c):
     diag = np.sqrt(np.arange(1, n_states))
     V0 = np.zeros([n_states, n_states], dtype=complex)
-    k = (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
-    V0 += (np.diag(diag, 1) * k) + (np.diag(diag, -1) * k)
+    k1 = (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((-1j * who * t))
+    k2 = (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
+    V0 += (np.diag(diag, 1) * k1) + (np.diag(diag, -1) * k2)
     # V = V0 * (
     # (x_0 / (np.sqrt(2))) * (-q) * e0_1 * np.cos(w * t) * np.exp((1j * who * t))
     # )
@@ -92,6 +93,6 @@ plt.plot(tn, c__[:, 0], label="c0^2")
 plt.plot(tn, c__[:, 1], label="c1^2")
 plt.plot(tn, c__[:, 2], label="c2^2")
 plt.legend()
-plt.title("c0^2, c1^2, c2^2 with e0 = 0.5")
-plt.savefig("2f e0=0,5.png")
+plt.title("c0^2, c1^2, c2^2 with e0 = 0.05")
+# plt.savefig("2f e0=0,5.png")
 plt.show()
